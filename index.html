@@ -1,0 +1,42 @@
+import random
+from tkinter import *
+
+# Tạo giao diện
+root = Tk()
+root.title('Tài xỉu tại nhà, chơi tới già không thắng!')
+root.geometry('400x320')
+
+# Các mặt xúc xắc (Unicode cho xúc xắc)
+dice_faces = ['\u2680', '\u2681', '\u2682', '\u2683', '\u2684', '\u2685']
+
+# Hiển thị xúc xắc và kết quả
+dice_label = Label(root, font=("Helvetica", 200))
+result_label = Label(root, font=("Helvetica", 40))
+
+def roll():
+    # Tung 3 viên xúc xắc
+    first_dice = random.randint(1, 6)
+    second_dice = random.randint(1, 6)
+    third_dice = random.randint(1, 6)
+
+    # Hiển thị mặt xúc xắc
+    dice_label.config(text=f'{dice_faces[first_dice - 1]}{dice_faces[second_dice - 1]}{dice_faces[third_dice - 1]}')
+    dice_label.pack()
+
+    # Tính tổng điểm
+    sum_dice = first_dice + second_dice + third_dice
+
+    # Hiển thị kết quả Tài hoặc Xỉu
+    result_label.config(
+        text='Tài' if sum_dice > 10 else 'Xỉu',
+        foreground='red' if sum_dice > 10 else 'green'
+    )
+    result_label.pack(after=dice_label)
+
+# Nút bấm quay xúc xắc
+b1 = Button(root, text="Quay tài xỉu!", foreground='blue', command=roll)
+b1.pack()
+
+# Chạy chương trình
+root.mainloop()
+
